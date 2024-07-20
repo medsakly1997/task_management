@@ -2,11 +2,13 @@ import { useState } from "react";
 import iconUp from "./../assets/up-arrow.png";
 import iconDown from "../assets/down.png";
 import elipsis from "../assets/elipsis.png";
+import HeaderDropdown from "./HeaderDropdown";
 
 export default function Header() {
   const [openDropdown, setOpenDropdown] = useState(false);
+  console.log(openDropdown);
   return (
-    <header className="p-4 left-0 right-0 bg-white dark:bg-[#2b2c37] z-50">
+    <div className="p-4 left-0 right-0 bg-white dark:bg-[#2b2c37] z-50">
       <header className="flex justify-between dark:text-white items-center">
         {/* Left side */}
         <div className="flex items-center space-x-2 md:space-x-4">
@@ -27,17 +29,19 @@ export default function Header() {
               src={openDropdown ? iconUp : iconDown}
               alt="Dropdown"
               className="cursor-pointer w-3 ml-2 md:hidden"
-              onClick={() => setOpenDropdown((prevState) => !prevState)}
+              onClick={() => setOpenDropdown(!openDropdown)}
             />
           </div>
         </div>
         {/* Right side */}
         <div className="flex items-center space-x-3 md:space-x-6">
-          <button className="button">+ Add New Task</button>
+          <button className="hidden md:block button">+ Add New Task</button>
           <button className="button py-1 px-3 md:hidden">+</button>
           <img src={elipsis} alt="elipsis" className="cursor-pointer h-6" />
         </div>
       </header>
-    </header>
+
+      {openDropdown && <HeaderDropdown setOpenDropdown={setOpenDropdown} />}
+    </div>
   );
 }
